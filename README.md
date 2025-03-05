@@ -15,7 +15,7 @@ This is a **User Management System** built with **Node.js, TypeScript, SQLite, a
 
 ### ** Clone the Repository**
 ```bash
-git clone https://github.com/yourusername/user-management-api.git
+git clone https://github.com/ebuxtain/user-management-api.git
 cd user-management-api
 
 Install Dependencies
