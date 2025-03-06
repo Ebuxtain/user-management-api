@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
-const sequelize = new sequelize_1.Sequelize({
+const db = new sequelize_1.Sequelize({
     storage: "./database.sqlite",
     dialect: "sqlite",
     logging: false,
@@ -9,5 +9,5 @@ const sequelize = new sequelize_1.Sequelize({
         timestamps: true,
     },
 });
-exports.default = sequelize;
+exports.default = db;
 //# sourceMappingURL=database.config.js.map
