@@ -1,6 +1,6 @@
 import { Sequelize } from "sequelize";
 
-const db = new Sequelize({
+const sequelize = new Sequelize({
   storage: "./database.sqlite",
   dialect: "sqlite",
   logging: false,
@@ -9,7 +9,7 @@ const db = new Sequelize({
   },
 });
 
-export default db;
+export default sequelize;
 
 
   
