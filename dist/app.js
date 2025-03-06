@@ -33,11 +33,10 @@ app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 // Routes
-app.use("/api", userRoutes_1.default);
+app.use("/users", userRoutes_1.default);
 app.use("/posts", postRoutes_1.default);
-app.use("/address", addressRoutes_1.default);
-// start Server
-const PORT = 5000;
+app.use("/addresses", addressRoutes_1.default);
+const PORT = process.env.PORT || 4000;
 const server = app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });

@@ -12,34 +12,34 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createUser = exports.getUserById = exports.getUsersCount = exports.getUsers = void 0;
+exports.createUser = exports.getUserById = exports.getUsersCount = exports.getPaginatedUsers = void 0;
 const userModel_1 = require("../models/userModel");
 const addressModel_1 = __importDefault(require("../models/addressModel"));
 const userValidator_1 = __importDefault(require("../validators/userValidator"));
-const getUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const getPaginatedUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const pageNumber = parseInt(req.query.pageNumber, 10) || 0;
-        const pageSize = parseInt(req.query.pageSize, 10) || 10;
-        const offset = pageNumber * pageSize;
-        const users = yield userModel_1.UserInstance.findAndCountAll({
+        const page = parseInt(req.query.page) || 1;
+        const pageSize = parseInt(req.query.pageSize) || 10;
+        const { count, rows } = yield userModel_1.UserInstance.findAndCountAll({
             limit: pageSize,
-            offset,
-            order: [["createdAt", "DESC"]],
+            offset: (page - 1) * pageSize,
         });
         res.status(200).json({
-            totalUsers: users.count,
-            totalPages: Math.ceil(users.count / pageSize),
-            currentPage: pageNumber,
+            message: "Users retrieved successfully",
+            totalUsers: count,
+            data: rows,
+            totalPages: Math.ceil(count / pageSize),
+            currentPage: page,
             pageSize,
-            data: users.rows,
         });
+        return;
     }
     catch (error) {
         console.error("Error fetching users:", error);
         res.status(500).json({ message: "Internal server error" });
     }
 });
-exports.getUsers = getUsers;
+exports.getPaginatedUsers = getPaginatedUsers;
 const getUsersCount = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const totalUsers = yield userModel_1.UserInstance.count();

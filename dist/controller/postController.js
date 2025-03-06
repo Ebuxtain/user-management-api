@@ -52,57 +52,44 @@ exports.createPost = createPost;
 const deletePost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { id } = req.params;
-        // Find the post by postId
+        // Find the post first
         const post = yield postModel_1.PostInstance.findByPk(id);
         if (!post) {
             res.status(404).json({ message: "Post not found" });
             return;
         }
-        // Delete the post
-        yield post.destroy();
+        yield post.destroy(); // ✅ Only delete if the post exists
         res.status(200).json({ message: "Post deleted successfully" });
+        return;
     }
     catch (error) {
         console.error("Error deleting post:", error);
         res.status(500).json({ message: "Internal server error" });
+        return;
     }
 });
 exports.deletePost = deletePost;
 const getUserPosts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { userId } = req.params;
-        // Ensure userId is provided and is a valid number
-        if (!userId || isNaN(Number(userId))) {
-            console.log("Invalid userId received:", userId); // Debugging
-            res.status(400).json({ message: "Invalid or missing user ID" });
-            return;
-        }
-        // Convert userId to number
-        const userIdNum = Number(userId);
-        // Check if the user exists
-        const user = yield userModel_1.UserInstance.findByPk(userIdNum);
+        // Ensure user exists before fetching posts
+        const user = yield userModel_1.UserInstance.findByPk(userId);
         if (!user) {
             res.status(404).json({ message: "User not found" });
             return;
         }
-        // Fetch all posts made by the user
-        const posts = yield postModel_1.PostInstance.findAll({
-            where: { userId: userIdNum },
-            include: [{ model: userModel_1.UserInstance, as: "user" }],
-        });
-        if (posts.length === 0) {
-            res.status(404).json({ message: "No posts found for this user" });
-            return;
-        }
+        const posts = yield postModel_1.PostInstance.findAll({ where: { userId } });
         res.status(200).json({
             message: "Posts retrieved successfully",
             data: posts,
         });
+        return;
     }
     catch (error) {
-        console.error("Error fetching user posts:", error);
+        console.error("Error retrieving posts:", error);
         res.status(500).json({ message: "Internal server error" });
     }
+    return;
 });
 exports.getUserPosts = getUserPosts;
 //# sourceMappingURL=postController.js.map
