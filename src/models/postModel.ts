@@ -9,7 +9,9 @@ export interface PostAttributes {
   userId: number;
 }
 
-export class PostInstance extends Model<PostAttributes> {}
+export class PostInstance extends Model<PostAttributes> {
+  id: any;
+}
 
 PostInstance.init(
   {

@@ -47,65 +47,52 @@ export const createPost = async (req: Request, res: Response): Promise<void> => 
 
 export const deletePost = async (req: Request, res: Response): Promise<void> => {
     try {
-        const { id } = req.params;
-
-        // Find the post by postId
-        const post = await PostInstance.findByPk(id);
-
-        if (!post) {
-            res.status(404).json({ message: "Post not found" });
-            return;
-        }
-
-        // Delete the post
-        await post.destroy();
-
-        res.status(200).json({ message: "Post deleted successfully" });
+      const { id } = req.params;
+  
+      // Find the post first
+      const post = await PostInstance.findByPk(id);
+      if (!post) {
+         res.status(404).json({ message: "Post not found" });
+         return 
+      }
+  
+      await post.destroy(); // ✅ Only delete if the post exists
+       res.status(200).json({ message: "Post deleted successfully" });
+       return
+  
     } catch (error) {
-        console.error("Error deleting post:", error);
-        res.status(500).json({ message: "Internal server error" });
+      console.error("Error deleting post:", error);
+       res.status(500).json({ message: "Internal server error" });
+       return
     }
-};
+  };
+  
 
 
-export const getUserPosts = async (req: Request, res: Response): Promise<void> => {
+
+  export const getUserPosts = async (req: Request, res: Response): Promise<void> => {
     try {
-        const { userId } = req.params; 
-
-        // Ensure userId is provided and is a valid number
-        if (!userId || isNaN(Number(userId))) {
-            console.log("Invalid userId received:", userId); // Debugging
-            res.status(400).json({ message: "Invalid or missing user ID" });
-            return;
-        }
-
-        // Convert userId to number
-        const userIdNum = Number(userId);
-
-        // Check if the user exists
-        const user = await UserInstance.findByPk(userIdNum);
-        if (!user) {
-            res.status(404).json({ message: "User not found" });
-            return;
-        }
-
-        // Fetch all posts made by the user
-        const posts = await PostInstance.findAll({
-            where: { userId: userIdNum },
-            include: [{ model: UserInstance, as: "user" }],
-        });
-
-        if (posts.length === 0) {
-            res.status(404).json({ message: "No posts found for this user" });
-            return;
-        }
-
-        res.status(200).json({
-            message: "Posts retrieved successfully",
-            data: posts,
-        });
+      const { userId } = req.params;
+  
+      // Ensure user exists before fetching posts
+      const user = await UserInstance.findByPk(userId);
+      if (!user) {
+        res.status(404).json({ message: "User not found" });
+        return
+      }
+  
+      const posts = await PostInstance.findAll({ where: { userId } });
+  
+      res.status(200).json({
+        message: "Posts retrieved successfully",
+        data: posts, 
+      });
+      return
+  
     } catch (error) {
-        console.error("Error fetching user posts:", error);
-        res.status(500).json({ message: "Internal server error" });
+      console.error("Error retrieving posts:", error);
+     res.status(500).json({ message: "Internal server error" });
     }
-};
+    return 
+  };
+  

@@ -22,7 +22,7 @@ Install Dependencies
 npm install
 
 Start the Server
-npm run dev
+npm start
 
 Running Tests
-npm test
+ npm test -- --detectOpenHandles

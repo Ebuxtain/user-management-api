@@ -3,30 +3,31 @@ import { UserInstance } from "../models/userModel";
 import AddressInstance from "../models/addressModel";
 import userValidatorSchema from "../validators/userValidator";
 
-export const getUsers = async (req: Request, res: Response): Promise<void> => {
+export const getPaginatedUsers = async (req: Request, res: Response): Promise<void> => {
   try {
-    const pageNumber = parseInt(req.query.pageNumber as string, 10) || 0;
-    const pageSize = parseInt(req.query.pageSize as string, 10) || 10;
-    const offset = pageNumber * pageSize;
+    const page = parseInt(req.query.page as string) || 1;
+    const pageSize = parseInt(req.query.pageSize as string) || 10;
 
-    const users = await UserInstance.findAndCountAll({
+    const { count, rows } = await UserInstance.findAndCountAll({
       limit: pageSize,
-      offset,
-      order: [["createdAt", "DESC"]],
+      offset: (page - 1) * pageSize,
     });
 
-    res.status(200).json({
-      totalUsers: users.count,
-      totalPages: Math.ceil(users.count / pageSize),
-      currentPage: pageNumber,
+     res.status(200).json({
+      message: "Users retrieved successfully",
+      totalUsers: count,
+      data: rows, 
+      totalPages: Math.ceil(count / pageSize),
+      currentPage: page,
       pageSize,
-      data: users.rows,
     });
+    return
   } catch (error) {
     console.error("Error fetching users:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
 
 export const getUsersCount = async (req: Request, res: Response): Promise<void> => {
   try {

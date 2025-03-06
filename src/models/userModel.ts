@@ -9,6 +9,7 @@ export interface UserAttributes {
 
 export class UserInstance extends Model<UserAttributes> {
   address: any;
+  id!: number;
 }
 
 UserInstance.init(

@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.get("/get-address/:userId", getUserAddress);
 router.post("/create", createAddress);
-router.patch("/update/:userId", updateAddress);
+router.patch("/update/:userId", updateAddress)
 
 export default router;
 
