@@ -1,30 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1741251731368" clover="3.2.0">
-  <project timestamp="1741251731368" name="All files">
-    <metrics statements="221" coveredstatements="176" conditionals="34" coveredconditionals="23" methods="25" coveredmethods="23" elements="280" coveredelements="222" complexity="0" loc="221" ncloc="221" packages="5" files="12" classes="12"/>
+<coverage generated="1741341526217" clover="3.2.0">
+  <project timestamp="1741341526217" name="All files">
+    <metrics statements="217" coveredstatements="173" conditionals="34" coveredconditionals="23" methods="23" coveredmethods="22" elements="274" coveredelements="218" complexity="0" loc="217" ncloc="217" packages="5" files="12" classes="12"/>
     <package name="src">
-      <metrics statements="19" coveredstatements="18" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
+      <metrics statements="15" coveredstatements="15" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="app.ts" path="/Users/mac/user-management-api/src/app.ts">
-        <metrics statements="19" coveredstatements="18" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
+        <metrics statements="15" coveredstatements="15" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="3" type="stmt"/>
         <line num="2" count="3" type="stmt"/>
         <line num="3" count="3" type="stmt"/>
         <line num="4" count="3" type="stmt"/>
         <line num="5" count="3" type="stmt"/>
         <line num="6" count="3" type="stmt"/>
-        <line num="7" count="3" type="stmt"/>
+        <line num="8" count="3" type="stmt"/>
         <line num="9" count="3" type="stmt"/>
-        <line num="10" count="3" type="stmt"/>
+        <line num="12" count="3" type="stmt"/>
         <line num="13" count="3" type="stmt"/>
-        <line num="15" count="3" type="stmt"/>
-        <line num="18" count="0" type="stmt"/>
+        <line num="14" count="3" type="stmt"/>
+        <line num="17" count="3" type="stmt"/>
+        <line num="18" count="3" type="stmt"/>
+        <line num="19" count="3" type="stmt"/>
         <line num="21" count="3" type="stmt"/>
-        <line num="22" count="3" type="stmt"/>
-        <line num="23" count="3" type="stmt"/>
-        <line num="26" count="3" type="stmt"/>
-        <line num="27" count="3" type="stmt"/>
-        <line num="28" count="3" type="stmt"/>
-        <line num="34" count="3" type="stmt"/>
       </file>
     </package>
     <package name="src.controller">

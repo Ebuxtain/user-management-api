@@ -13,7 +13,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const app_1 = __importDefault(require("./app"));
-const PORT = process.env.PORT || 4000;
+const database_config_1 = __importDefault(require("./database/database.config"));
+const PORT = 4000;
 const server = app_1.default.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
@@ -29,5 +30,12 @@ process.on("SIGINT", () => __awaiter(void 0, void 0, void 0, function* () {
     console.log("⚠️ Process interrupted. Closing server...");
     server.close(() => process.exit(0));
 }));
-exports.default = server;
+database_config_1.default.sync()
+    .then(() => {
+    console.log(`Database connected successfully`);
+})
+    .catch((err) => {
+    console.log(err);
+});
+exports.default = app_1.default;
 //# sourceMappingURL=server.js.map
