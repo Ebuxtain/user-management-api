@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const app_1 = __importDefault(require("./app"));
 const database_config_1 = __importDefault(require("./database/database.config"));
-const PORT = 4000;
+const PORT = 5000;
 const server = app_1.default.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
